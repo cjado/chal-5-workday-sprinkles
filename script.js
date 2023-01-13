@@ -2,15 +2,12 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
-
-    
-
-    $(document).on('click', '.saveBtn', function() {
-        var $this = $(this);
-        var hour = parseInt($this.closest('.time-block').attr('id').split('-')[1]);
-        var description = $this.prev().val();
-        localStorage.setItem('hour-' + hour, description);
-    })
+    var now = dayjs();
+    var nowHour = parseInt(now.format('h'));
+    console.log(nowHour)
+    if(now.format('A') === 'PM') {
+        nowHour += 12;
+    }
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
@@ -20,15 +17,12 @@ $(function () {
     //
 
     $('.time-block').each(function() {
-        var now = dayjs();
-        var hour = now.hour();
         var $this = $(this);
-        var id = parseInt($this.attr('id').split('-')[1]);
-
-        if (hour > id) {
+        var timeBlockHour = parseInt($this.attr('id').split('-')[1]);  // get the hour value from the id "hour-#"
+        if (nowHour > timeBlockHour) {
             $this.addClass('past');
             $this.removeClass('present future');
-        } else if (hour < id) {
+        } else if (nowHour < timeBlockHour) {
             $this.addClass('future');
             $this.removeClass('present past');
         } else {
@@ -42,4 +36,3 @@ $(function () {
     //
     // TODO: Add code to display the current date in the header of the page.
   });
-
