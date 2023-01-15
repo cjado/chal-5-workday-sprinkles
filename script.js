@@ -13,6 +13,7 @@ $(function () {
         var hour = parent.id.split('-')[1];
         var userInput = parent.querySelector('textarea').value;
         localStorage.setItem(hour,userInput)
+        prom
     })
 
     $('.time-block').each(function() {
@@ -30,7 +31,7 @@ $(function () {
             $this.addClass('present');
             $this.removeClass('future past');
         }});
-        
-    $('#currentDay').html('Todays date: ' + now.format('DD/MM/YYYY'));
+
+    $('#currentDay').html('Todays date: ' + now.format('MM/DD/YYYY'));
 
   });
